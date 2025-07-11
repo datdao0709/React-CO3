@@ -25,6 +25,10 @@ export default function ListStudent() {
     let [searchName, setSearchName] = useState("");
     let [searchClass, setSearchClass] = useState("");
     let [top3, setTop3] = useState([]);
+    let resetTop3 = () => {
+        setTop3([]);
+    };
+
 
     let addClass = () => {
         if (newClass && !classes.includes(newClass)) {
@@ -121,13 +125,13 @@ export default function ListStudent() {
             <div className="section">
                 <h2>👨‍🎓 Danh sách học sinh</h2>
                 <div className="form-row">
-                    <input
+                    <input style={{ marginBottom: "20px" }}
                         placeholder="Tìm theo tên"
                         value={searchName}
                         onChange={(e) => setSearchName(e.target.value)}
                         className="input"
                     />
-                    <select
+                    <select style={{ marginBottom: "20px" }}
                         value={searchClass}
                         onChange={(e) => setSearchClass(e.target.value)}
                         className="input"
@@ -176,9 +180,13 @@ export default function ListStudent() {
 
                 <div className="form-row">
                     <button onClick={showTop3}>🎖 Top 3 điểm cao</button>
+                    {top3.length > 0 && (
+                        <button onClick={resetTop3}>↩️ Reset</button>
+                    )}
                     <button onClick={() => sortScore(false)}>🔽 Điểm giảm</button>
                     <button onClick={() => sortScore(true)}>🔼 Điểm tăng</button>
                 </div>
+
             </div>
 
             {top3.length > 0 && (
