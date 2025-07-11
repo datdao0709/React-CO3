@@ -1,12 +1,10 @@
 import './App.css';
-import BT1 from './BT1';
-import ListNumber from './ListNumber';
+import ListStudent from "./ListStudent";
 
 function App() {
     return (
         <div className="App">
-            <h1>Bài tập 1: Tính tổng</h1>
-            <ListNumber /> {}
+            <ListStudent></ListStudent>{}
         </div>
     );
 }

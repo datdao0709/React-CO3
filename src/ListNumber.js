@@ -1,48 +1,58 @@
 import { useState } from "react";
 
 export default function ListNumber() {
-    const [number, setNumber] = useState("");
-    const [list, setList] = useState([]);
-    const [sum, setSum] = useState(0);
-    const [avgDiv3, setAvgDiv3] = useState(0);
+    const [so, setSo] = useState("");
+    const [mang, setMang] = useState([]);
+    const [tong, setTong] = useState(0);
+    const [tbChia3, setTbChia3] = useState(0);
 
-    const addNumber = () => {
-        const num = +number;
-        if (!isNaN(num)) {
-            setList([...list, num]);
-            setNumber("");
+    function themSo() {
+        const giaTri = Number(so);
+        if (!isNaN(giaTri)) {
+            setMang([...mang, giaTri]);
+            setSo("");
         }
-    };
+    }
 
-    const calcSum = () => {
-        const total = list.reduce((acc, cur) => acc + cur, 0);
-        setSum(total);
-    };
-
-    const calcAvgDiv3 = () => {
-        const div3 = list.filter((n) => n % 3 === 0);
-        const avg = div3.length ? div3.reduce((a, b) => a + b) / div3.length : 0;
-        setAvgDiv3(avg);
-    };
+    function tinhTong() {
+        let tongSo = 0;
+        for (let i = 0; i < mang.length; i++) {
+            tongSo += mang[i];
+        }
+        setTong(tongSo);
+    }
+    function tinhTbChia3() {
+        let tongChia3 = 0;
+        let dem = 0;
+        for (let i = 0; i < mang.length; i++) {
+            if (mang[i] % 3 === 0) {
+                tongChia3 += mang[i];
+                dem++;
+            }
+        }
+        if (dem > 0) {
+            setTbChia3(tongChia3 / dem);
+        } else {
+            setTbChia3(0);
+        }
+    }
 
     return (
         <div>
             <h2>List Number</h2>
+
             <input
-                type="number"
-                value={number}
-                onChange={(e) => setNumber(e.target.value)}
+                type="text" value={so} onChange={(e) => setSo(e.target.value)} placeholder="Nhập số"
             />
-            <button onClick={addNumber}>Thêm vào mảng</button>
-            <br /><br />
+            <button onClick={themSo}>Thêm</button>
 
-            <div>Mảng hiện tại: {JSON.stringify(list)}</div>
+            <p>Mảng: {mang.join(", ")}</p>
 
-            <button onClick={calcSum}>Tính tổng</button>
-            <div>Tổng: {sum}</div>
+            <button onClick={tinhTong}>Tính tổng</button>
+            <p>Tổng: {tong}</p>
 
-            <button onClick={calcAvgDiv3}>Tính TBC các số chia hết cho 3</button>
-            <div>Trung bình chia hết cho 3: {avgDiv3}</div>
+            <button onClick={tinhTbChia3}>Tính TBC chia hết cho 3</button>
+            <p>TBC chia hết cho 3: {tbChia3}</p>
         </div>
     );
 }
